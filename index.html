@@ -1,219 +1,212 @@
-import 'package:flutter/material.dart';
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Um Presente para Você</title>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #fff5f7;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
 
-void main() => runApp(const HomenagemMaeApp());
+        /* Fundo Animado Suave */
+        .bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #fff0f3 0%, #ffdde1 100%);
+            z-index: -1;
+        }
 
-class HomenagemMaeApp extends StatelessWidget {
-  const HomenagemMaeApp({super.key});
+        /* Container do Envelope */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.5s;
+        }
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.deepOrange.shade100,
-        fontFamily: 'Serif',
-      ),
-      home: const TelaHomenagem(),
-    );
-  }
-}
+        .envelope-wrapper:hover { transform: scale(1.02); }
 
-class TelaHomenagem extends StatefulWidget {
-  const TelaHomenagem({super.key});
+        /* Estilo do Cartão/Papel */
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.4);
+            max-width: 450px;
+            width: 90vw;
+            text-align: center;
+            border: 2px solid #fff;
+            position: relative;
+            z-index: 2;
+        }
 
-  @override
-  State<TelaHomenagem> createState() => _TelaHomenagemState();
-}
+        h1 {
+            font-family: 'Alex Brush', cursive;
+            font-size: 3.5rem;
+            color: #ff758c;
+            margin-bottom: 15px;
+        }
 
-class _TelaHomenagemState extends State<TelaHomenagem> {
-  int _coracoesEnviados = 0;
+        .poem {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #7a5c61;
+            font-style: italic;
+            margin-bottom: 25px;
+            white-space: pre-line;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 1s all ease;
+        }
 
-  void _enviarAmor() {
-    setState(() => _coracoesEnviados++);
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Você enviou +1 dose de gratidão! Total: $_coracoesEnviados"),
-        duration: const Duration(milliseconds: 800),
-        backgroundColor: Colors.pinkAccent,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
+        .poem.reveal { opacity: 1; transform: translateY(0); }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xFFF9F7F2),
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          // Header com botão interativo
-          SliverAppBar(
-            expandedHeight: 120,
-            floating: true,
-            backgroundColor: Colors.transparent,
-            flexibleSpace: const FlexibleSpaceBar(
-              title: Text(
-                "Para Minha Mãe",
-                style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold),
-              ),
-              centerTitle: true,
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 15),
-                child: FloatingActionButton.small(
-                  onPressed: _enviarAmor,
-                  backgroundColor: Colors.white,
-                  elevation: 2,
-                  child: const Icon(Icons.favorite, color: Colors.redAccent),
-                ),
-              ),
-            ],
-          ),
+        /* Botões Estilizados */
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
 
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                children: [
-                  _buildMainCard(),
-                  const SizedBox(height: 35),
-                  
-                  const Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Nossos Momentos",
-                      style: TextStyle(
-                        fontSize: 18, 
-                        fontWeight: FontWeight.w600, 
-                        color: Colors.blueGrey,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  _buildMiniGallery(),
-                  
-                  const SizedBox(height: 40),
-                  _buildPoemSection(),
-                  
-                  const SizedBox(height: 60),
-                  const Text(
-                    "Feito com dedicação por Adrian",
-                    style: TextStyle(
-                      fontStyle: FontStyle.italic, 
-                      color: Colors.grey,
-                      fontSize: 12,
-                    ),
-                  ),
-                  const SizedBox(height: 40),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+        .btn {
+            background: #ff758c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.3);
+            width: 80%;
+        }
 
-  Widget _buildMainCard() {
-    return Container(
-      height: 180,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-        gradient: const LinearGradient(
-          colors: [Color(0xFFE6DADA), Color(0xFF274046)],
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1), 
-            blurRadius: 20, 
-            offset: const Offset(0, 10),
-          )
-        ],
-      ),
-      child: const Center(
-        child: Icon(Icons.auto_awesome, size: 70, color: Colors.white70),
-      ),
-    );
-  }
+        .btn-alt {
+            background: white;
+            color: #ff758c;
+            border: 1px solid #ff758c;
+        }
 
-  Widget _buildMiniGallery() {
-    return SizedBox(
-      height: 130,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        physics: const BouncingScrollPhysics(),
-        itemCount: 3,
-        separatorBuilder: (context, index) => const SizedBox(width: 15),
-        itemBuilder: (context, index) => Container(
-          width: 130,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(25),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.brown.withOpacity(0.05),
-                blurRadius: 10,
-              )
-            ],
-          ),
-          child: Icon(Icons.photo_library_outlined, color: Colors.pink.shade100, size: 30),
-        ),
-      ),
-    );
-  }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 117, 140, 0.5); }
 
-  Widget _buildPoemSection() {
-    return Container(
-      padding: const EdgeInsets.all(30),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(35),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.brown.withOpacity(0.05), 
-            blurRadius: 25,
-          )
-        ],
-      ),
-      child: const Column(
-        children: [
-          Text(
-            "Retalhos de Ouro",
-            style: TextStyle(
-              fontSize: 22, 
-              fontWeight: FontWeight.bold, 
-              color: Colors.brown,
-              letterSpacing: 1.5,
-            ),
-          ),
-          SizedBox(height: 25),
-          Text(
-            "Entre o estalar das máquinas e o silêncio do dia,\n"
-            "Teu passo desenha o mapa de uma vida inteira.\n"
-            "Não és apenas o porto onde a alma descansa,\n"
-            "Mas a engenharia exata que sustenta a fundação.\n\n"
-            "Teu amor não é verso solto, é código bem escrito,\n"
-            "Sem erros de lógica, com a paciência do artesão.\n"
-            "É a fibra que resiste ao tempo e ao desgaste,\n"
-            "O bordado mais fino feito sob a pressão do chão.",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 16, 
-              height: 1.8, 
-              color: Colors.black87,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+        /* Balão de Frase Curta */
+        #frase-carinho {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: #ff8fa3;
+            font-weight: 500;
+            min-height: 20px;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            color: #ffb3c1;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg"></div>
+
+    <div class="envelope-wrapper" id="main-card">
+        <div class="card">
+            <h1>Mãe</h1>
+            
+            <div class="poem" id="poem-text">
+                Seu amor é o que me sustenta,
+                A luz que guia cada decisão.
+                Obrigado por ser meu exemplo de força,
+                E por todo o carinho que transborda no coração.
+                
+                Neste dia, celebro a mulher incrível que você é.
+            </div>
+
+            <div class="btn-group">
+                <button class="btn" onclick="revealPoem(this)">Abrir Mensagem ✨</button>
+                <button class="btn btn-alt" onclick="gerarFrase()">Outro Carinho ❤</button>
+            </div>
+
+            <div id="frase-carinho"></div>
+
+            <footer>Com todo amor, Adrian</footer>
+        </div>
+    </div>
+
+    <script>
+        const frases = [
+            "Você é meu maior orgulho!",
+            "Obrigado por tudo, sempre.",
+            "Teu abraço é o melhor lugar do mundo.",
+            "Você brilha mais que qualquer estrela!",
+            "Minha heroína favorita é você.",
+            "Obrigado por acreditar em mim."
+        ];
+
+        function revealPoem(btn) {
+            // Efeito de Confete de Coração
+            var end = Date.now() + (2 * 1000);
+            var colors = ['#ff758c', '#ffb3c1', '#ffffff'];
+
+            (function frame() {
+              confetti({
+                particleCount: 3,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: colors,
+                shapes: ['heart']
+              });
+              confetti({
+                particleCount: 3,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: colors,
+                shapes: ['heart']
+              });
+
+              if (Date.now() < end) {
+                requestAnimationFrame(frame);
+              }
+            }());
+
+            document.getElementById('poem-text').classList.add('reveal');
+            btn.style.display = 'none';
+        }
+
+        function gerarFrase() {
+            const el = document.getElementById('frase-carinho');
+            const randomFrase = frases[Math.floor(Math.random() * frases.length)];
+            
+            // Efeito de fade simples
+            el.style.opacity = 0;
+            setTimeout(() => {
+                el.innerText = randomFrase;
+                el.style.opacity = 1;
+            }, 200);
+
+            // Pequena explosão de confete no botão
+            confetti({
+                particleCount: 40,
+                spread: 70,
+                origin: { y: 0.8 },
+                colors: ['#ff758c', '#ffd1dc']
+            });
+        }
+    </script>
+</body>
+</html>
