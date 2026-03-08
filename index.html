@@ -3,223 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Para Minha Mãe - Com Amor</title>
+    <title>Para Minha Mãe ❤</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body {
-            background: #fff0f3;
-            font-family: 'Montserrat', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* Fundo com esferas de luz suaves */
-        .orb {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            filter: blur(80px);
-            z-index: -1;
-            animation: float 10s infinite alternate;
-        }
-        .orb-1 { background: #ffdde1; top: -10%; left: -10%; }
-        .orb-2 { background: #ee9ca7; bottom: -10%; right: -10%; animation-delay: 2s; }
-
-        @keyframes float {
-            from { transform: translate(0, 0); }
-            to { transform: translate(30px, 50px); }
-        }
-
-        /* Cartão com Efeito Glassmorphism */
-        .card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            padding: 40px 25px;
-            border-radius: 40px;
-            box-shadow: 0 25px 50px rgba(255, 143, 163, 0.15);
-            width: 92%;
-            max-width: 420px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            position: relative;
-            z-index: 10;
-        }
-
-        h1 {
-            font-family: 'Alex Brush', cursive;
-            font-size: clamp(3.5rem, 18vw, 5rem);
-            background: linear-gradient(45deg, #ff758c, #ff4d6d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
-        }
-
-        .subtitle {
-            font-size: 0.75rem;
-            letter-spacing: 4px;
-            color: #d1a1ab;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-            font-weight: 700;
-        }
-
-        .poem {
-            font-size: clamp(1rem, 4.5vw, 1.15rem);
-            line-height: 1.8;
-            color: #5d464a;
-            font-style: italic;
-            margin-bottom: 30px;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: 1.5s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
-        .poem.reveal { opacity: 1; transform: scale(1); }
-
-        /* Barra de Progresso de Amor */
-        .love-bar-container {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 117, 140, 0.1);
-            border-radius: 10px;
-            margin: 20px 0;
-            overflow: hidden;
-            display: none;
-        }
-        .love-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #ff758c, #ff4d6d);
-            transition: width 0.5s ease;
-        }
-
-        .btn {
-            background: #ff758c;
-            color: white;
-            border: none;
-            padding: 18px;
-            border-radius: 25px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.4s;
-            box-shadow: 0 10px 25px rgba(255, 117, 140, 0.3);
-            width: 100%;
-            margin-bottom: 12px;
-        }
-
-        .btn-ghost {
-            background: transparent;
-            color: #ff758c;
-            border: 2px solid #ff758c;
-            box-shadow: none;
-        }
-
-        .final-wish {
-            font-family: 'Alex Brush', cursive;
-            font-size: 2.5rem;
-            color: #ff4d6d;
-            margin-top: 20px;
-            height: 0;
-            overflow: hidden;
-            transition: 1s ease;
-        }
-        .final-wish.show { height: auto; margin-top: 20px; }
-
-        footer {
-            margin-top: 35px;
-            font-size: 0.7rem;
-            color: #d1a1ab;
-            opacity: 0.8;
-        }
+        body { background: #fff0f3; font-family: 'Montserrat', sans-serif; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .orb { position: absolute; width: 300px; height: 300px; border-radius: 50%; filter: blur(80px); z-index: -1; animation: float 8s infinite alternate; }
+        .orb-1 { background: #ffdde1; top: -5%; left: -5%; }
+        .orb-2 { background: #ee9ca7; bottom: -5%; right: -5%; animation-delay: 2s; }
+        @keyframes float { from { transform: translate(0, 0); } to { transform: translate(20px, 40px); } }
+        .card { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 40px 25px; border-radius: 40px; box-shadow: 0 25px 50px rgba(255, 143, 163, 0.15); width: 92%; max-width: 400px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.8); position: relative; z-index: 10; }
+        h1 { font-family: 'Alex Brush', cursive; font-size: clamp(3.5rem, 15vw, 4.8rem); color: #ff758c; margin-bottom: 10px; }
+        #contador-poema { font-size: 0.6rem; letter-spacing: 2px; color: #d1a1ab; margin-bottom: 10px; text-transform: uppercase; }
+        .poem { font-size: clamp(0.9rem, 4vw, 1.05rem); line-height: 1.6; color: #5d464a; font-style: italic; margin-bottom: 25px; min-height: 120px; display: flex; align-items: center; justify-content: center; transition: 0.5s ease; }
+        .progress-container { width: 100%; height: 8px; background: rgba(255, 117, 140, 0.1); border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, #ff758c, #ff4d6d); transition: width 0.4s ease; }
+        .btn { background: #ff758c; color: white; border: none; padding: 18px; border-radius: 50px; font-size: 1rem; font-weight: 700; width: 100%; cursor: pointer; box-shadow: 0 10px 25px rgba(255, 117, 140, 0.3); }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.2); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; visibility: hidden; transition: 0.4s; }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal { background: white; padding: 30px; border-radius: 30px; width: 85%; max-width: 320px; text-align: center; transform: scale(0.8); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal h2 { font-family: 'Alex Brush', cursive; font-size: 2.5rem; color: #ff4d6d; }
+        footer { margin-top: 30px; font-size: 0.65rem; color: #d1a1ab; letter-spacing: 2px; }
     </style>
 </head>
 <body>
-
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
+    <div class="modal-overlay" id="overlay">
+        <div class="modal">
+            <h2 id="modal-titulo">Coração Cheio!</h2>
+            <p id="modal-texto" style="margin: 15px 0 20px; color: #7a5c61;">Sua dose de amor foi entregue com sucesso.</p>
+            <button class="btn" onclick="proximoPoema()">Descobrir Novo Verso ❤</button>
+        </div>
+    </div>
+
     <div class="card">
-        <div class="subtitle">Especialmente para</div>
+        <div id="contador-poema">Homenagem 1 de 8</div>
         <h1>Mãe</h1>
-        
-        <div class="poem" id="txt-poema">
-            Seu amor é o ponto firme que me guia,
-            A luz que ilumina cada passo meu.
-            Obrigado por ser meu porto seguro,
-            Minha inspiração e minha força diária.
-            Você é a beleza em cada detalhe da vida.
+        <div class="poem" id="poema-display">
+            Teu amor é a arquitetura invisível<br>que sustenta cada um dos meus dias.
         </div>
-
-        <div class="love-bar-container" id="bar-container">
-            <div class="love-bar-fill" id="bar-fill"></div>
-        </div>
-
-        <div class="btn-group">
-            <button class="btn" id="btn-main" onclick="perfeito()">Abrir com Amor ✨</button>
-            <button class="btn btn-ghost" id="btn-extra" style="display:none" onclick="encherAmor()">Enviar mais Carinho ❤</button>
-        </div>
-
-        <div class="final-wish" id="wish">Feliz Dia da Mulher!</div>
-
-        <footer>COM TODO O MEU AMOR, ADRIAN</footer>
+        <div class="progress-container"><div class="progress-bar" id="prog-bar"></div></div>
+        <button class="btn" onclick="adicionarAmor()">Enviar Carinho ❤</button>
+        <footer>FELIZ DIA DA MULHER • ADRIAN</footer>
     </div>
 
     <script>
+        const poemas = [
+            "Teu amor é a arquitetura invisível\nque sustenta cada um dos meus dias.",
+            "Você transforma o rascunho do tempo\nem uma obra-prima de cuidado e luz.",
+            "Nas tramas da vida, teu abraço é o ponto\nque impede qualquer deserto de avançar.",
+            "Teu olhar é a bússola que calibra meu norte\ne faz do cansaço um mero detalhe.",
+            "Mais que raiz, você é o próprio solo\nonde meus sonhos aprenderam a brotar.",
+            "O silêncio do teu sacrifício ecoa\ncomo a música mais doce na minha história.",
+            "Você molda o ferro da rotina com mãos\nque trazem a suavidade da seda.",
+            "Mãe, você é a matriz de todo o bem\nque eu tento semear pelo mundo."
+        ];
+
+        let indiceAtual = 0;
         let progresso = 0;
 
-        function perfeito() {
-            document.getElementById('txt-poema').classList.add('reveal');
-            document.getElementById('wish').classList.add('show');
-            document.getElementById('bar-container').style.display = 'block';
-            document.getElementById('btn-main').style.display = 'none';
-            document.getElementById('btn-extra').style.display = 'block';
+        function adicionarAmor() {
+            progresso += 25;
+            document.getElementById('prog-bar').style.width = progresso + '%';
             
-            // Explosão cinematográfica de corações
-            lancarConfete(0.5);
-        }
+            confetti({ particleCount: 15, spread: 40, origin: { y: 0.8 }, colors: ['#ff758c'], shapes: ['heart'] });
 
-        function encherAmor() {
-            progresso += 20;
-            if (progresso > 100) progresso = 100;
-            document.getElementById('bar-fill').style.width = progresso + '%';
-            
-            // Confete localizado no clique
-            confetti({
-                particleCount: 30,
-                spread: 60,
-                origin: { y: 0.8 },
-                colors: ['#ff758c', '#ffccd5'],
-                shapes: ['heart']
-            });
-
-            if (progresso === 100) {
-                setTimeout(() => {
-                    lancarConfete(0.3);
-                    lancarConfete(0.7);
-                    alert("Coração preenchido com sucesso! Te amo, mãe!");
-                    progresso = 0;
-                    document.getElementById('bar-fill').style.width = '0%';
-                }, 300);
+            if (progresso >= 100) {
+                setTimeout(() => { document.getElementById('overlay').classList.add('active'); }, 400);
             }
         }
 
-        function lancarConfete(xPos) {
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { x: xPos, y: 0.6 },
-                colors: ['#ff758c', '#ffb3c1', '#ffffff'],
-                shapes: ['heart']
-            });
+        function proximoPoema() {
+            document.getElementById('overlay').classList.remove('active');
+            progresso = 0;
+            document.getElementById('prog-bar').style.width = '0%';
+            
+            indiceAtual = (indiceAtual + 1) % poemas.length;
+            
+            // Efeito de transição suave
+            const display = document.getElementById('poema-display');
+            display.style.opacity = 0;
+            
+            setTimeout(() => {
+                display.innerText = poemas[indiceAtual];
+                display.style.opacity = 1;
+                document.getElementById('contador-poema').innerText = `Homenagem ${indiceAtual + 1} de 8`;
+                lancarConfete();
+            }, 500);
+        }
+
+        function lancarConfete() {
+            confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 }, colors: ['#ff758c', '#ffffff'], shapes: ['heart'] });
         }
     </script>
 </body>
