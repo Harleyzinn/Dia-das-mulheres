@@ -1,0 +1,176 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(const HomenagemPremiumApp());
+
+class HomenagemPremiumApp extends StatelessWidget {
+  const HomenagemPremiumApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.deepOrange.shade100,
+        fontFamily: 'Serif',
+      ),
+      home: const TelaHomenagem(),
+    );
+  }
+}
+
+class TelaHomenagem extends StatefulWidget {
+  const TelaHomenagem({super.key});
+
+  @override
+  State<TelaHomenagem> createState() => _TelaHomenagemState();
+}
+
+class _TelaHomenagemState extends State<TelaHomenagem> {
+  int _coracoesEnviados = 0;
+
+  void _enviarAmor() {
+    setState(() => _coracoesEnviados++);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Você enviou +1 dose de gratidão! Total: $_coracoesEnviados"),
+        duration: const Duration(milliseconds: 500),
+        backgroundColor: Colors.pinkAccent,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFF9F7F2), // Creme bem clarinho
+      body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          // Header Estiloso com o novo botão de "Enviar Amor"
+          SliverAppBar(
+            expandedHeight: 120,
+            floating: true,
+            backgroundColor: Colors.transparent,
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text("Para Minha Mãe", 
+                style: TextStyle(color: Colors.brown, fontWeight: FontWeight.bold)),
+              centerTitle: true,
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 15),
+                child: FloatingActionButton.small(
+                  onPressed: _enviarAmor,
+                  backgroundColor: Colors.white,
+                  child: const Icon(Icons.favorite, color: Colors.redAccent),
+                ),
+              ),
+            ],
+          ),
+
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                children: [
+                  // Banner Principal (Foto ou Ilustração)
+                  _buildMainCard(),
+                  const SizedBox(height: 30),
+                  
+                  // Nova Funcionalidade: Mini Galeria de "Retalhos"
+                  const Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text("Nossos Momentos", 
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.blueGrey)),
+                  ),
+                  const SizedBox(height: 15),
+                  _buildMiniGallery(),
+                  
+                  const SizedBox(height: 30),
+
+                  // O Poema (Estilo Pergaminho Moderno)
+                  _buildPoemSection(),
+                  
+                  const SizedBox(height: 50),
+                  const Text("Feito com dedicação por Adrian", 
+                    style: TextStyle(fontStyle: FontStyle.italic, color: Colors.grey)),
+                  const SizedBox(height: 30),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildMainCard() {
+    return Container(
+      height: 180,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        gradient: const LinearGradient(
+          colors: [Color(0xFFE6DADA), Color(0xFF274046)], // Elegante e sóbrio
+          begin: Alignment.bottomLeft,
+          end: Alignment.topRight,
+        ),
+        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 15)],
+      ),
+      child: const Center(
+        child: Icon(Icons.auto_awesome, size: 80, color: Colors.white70),
+      ),
+    );
+  }
+
+  Widget _buildMiniGallery() {
+    return SizedBox(
+      height: 120,
+      child: ListView.separated(
+        scrollDirection: Axis.horizontal,
+        itemCount: 3,
+        separatorBuilder: (context, index) => const SizedBox(width: 15),
+        itemBuilder: (context, index) => Container(
+          width: 120,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.pink.shade50),
+          ),
+          child: Icon(Icons.photo_library_outlined, color: Colors.pink.shade100),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPoemSection() {
+    return Container(
+      padding: const EdgeInsets.all(25),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [BoxShadow(color: Colors.brown.withOpacity(0.05), blurRadius: 20)],
+      ),
+      child: const Column(
+        children: [
+          Text("Retalhos de Ouro", 
+            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.brown)),
+          SizedBox(height: 20),
+          Text(
+            "Entre o estalar das máquinas e o silêncio do dia,\n"
+            "Teu passo desenha o mapa de uma vida inteira.\n"
+            "Não és apenas o porto onde a alma descansa,\n"
+            "Mas a engenharia exata que sustenta a fundação.\n\n"
+            "Teu amor não é verso solto, é código bem escrito,\n"
+            "Sem erros de lógica, com a paciência do artesão.\n"
+            "É a fibra que resiste ao tempo e ao desgaste,\n"
+            "O bordado mais fino feito sob a pressão do chão.",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, height: 1.6),
+          ),
+        ],
+      ),
+    );
+  }
+}
